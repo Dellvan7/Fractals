@@ -61,14 +61,14 @@ def fract1(linesegment):
 		b = p0[1]
 		c = p1[0]
 		d = p1[1]
-		print(a,b)
-		print(c,d)
+		#print(a,b)
+		#print(c,d)
 		v1x = c-a
 		v1y = d-b
-		print("vector1:", v1x, v1y)
+		#print("vector1:", v1x, v1y)
 		v2x = v1x/2 - (math.sqrt(3)*v1y/2)
 		v2y = (math.sqrt(3)*v1x/2) + v1y/2
-		print("vector2:", v2x, v2y)
+		#print("vector2:", v2x, v2y)
 		third = ((a+v2x, b+v2y))
 		return(third)
 
@@ -98,7 +98,7 @@ def fract1(linesegment):
 		#compute the third point of the triangle
 		p12 = third(p13, p23)
 
-		print("POINTS:",p0, p13, p12, p23, p1)
+		#print("POINTS:",p0, p13, p12, p23, p1)
 		l1 = (p0, p13)
 		l2 = (p13, p12)
 		l3 = (p12, p23)
