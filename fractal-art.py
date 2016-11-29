@@ -61,12 +61,13 @@ def fract1(linesegment):
 		b = p0[1]
 		c = p1[0]
 		d = p1[1]
-
-		v1x = a-c
-		v1y = b-d
+		print(a,b)
+		print(c,d)
+		v1x = c-a
+		v1y = d-b
 		print("vector1:", v1x, v1y)
 		v2x = v1x/2 - (math.sqrt(3)*v1y/2)
-		v2y = (math.sqrt(3)*v1x/2) - v1y/2
+		v2y = (math.sqrt(3)*v1x/2) + v1y/2
 		print("vector2:", v2x, v2y)
 		third = ((a+v2x, b+v2y))
 		return(third)
@@ -91,8 +92,8 @@ def fract1(linesegment):
 		p0, p1 = linesegment[0], linesegment[1]
 
 		#Compute points that make up middle line segment
-		p13 = ((p0[0]+2*p1[0])/3, (p0[1]+2*p1[1])/3)
-		p23 = ( (2 * p0[0] + p1[0]) / 3, (2 * p0[1]+ p1[1]) / 3)
+		p23 = ( (p0[0] + 2 * p1[0]) / 3, (p0[1] + 2 * p1[1]) /3)
+		p13 = ( (2 * p0[0] + p1[0]) / 3, (2 * p0[1]+ p1[1]) / 3)
 
 		#compute the third point of the triangle
 		p12 = third(p13, p23)
@@ -124,7 +125,7 @@ def segments_to_graph(segemnts):
 
 if __name__ == "__main__":
 
-	segments = fract1(((0, 0), (3, 6)))
+	segments = fract1(((0, 0), (10, 10)))
 
 	# for i in range(2):
 	# 	frontier = set()
