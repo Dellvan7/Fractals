@@ -57,14 +57,26 @@ def fract1(linesegment):
 		return ((p1[0] + p2[0])/2, math.sqrt( (distancep1p2/3)**2 - (distancep1p2/6)**2 ))
 
 	def third(p0, p1):
-	    return ()
+		a = p0[0]
+		b = p0[1]
+		c = p1[0]
+		d = p1[1]
+
+		v1x = a-c
+		v1y = b-d
+
+		v2x = v1x/2 - (math.sqrt(3)*v1y/2)
+		v2y = (math.sqrt(3)*v1x/2) - v1y/2
+
+		third = [(a+v2x, b+v2y)]
+		return(third)
 
 	def fract1equation(linesegment):
 		p0, p1 = linesegment[0], linesegment[1]
 
 		p12 = midpoint(p0, p1)
-		p13 = third(p0, p1, 1)
-		p23 = third(p0, p1, 2)
+		p13 = third(p0, p1)
+		p23 = third(p0, p1)
 
 		# print("POINTS:",p0, p13, p12, p23, p1)
 
