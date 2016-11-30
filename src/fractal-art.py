@@ -75,22 +75,6 @@ def fract1(linesegment, iterations):
 	def fract1equation(linesegment):
 		p0, p1 = linesegment[0], linesegment[1]
 
-		p12 = midpoint(p0, p1)
-		p13 = third(p0, p1)
-		p23 = third(p0, p1)
-
-		# print("POINTS:",p0, p13, p12, p23, p1)
-
-
-		l1 = (p0, p13)
-		l2 = (p13, p12)
-		l3 = (p12, p23)
-		l4 = (p23, p1)
-
-		return [l1, l2, l3, l4]
-	def fract2equation(linesegment):
-		p0, p1 = linesegment[0], linesegment[1]
-
 		#Compute points that make up middle line segment
 		p23 = ( (p0[0] + 2 * p1[0]) / 3, (p0[1] + 2 * p1[1]) /3)
 		p13 = ( (2 * p0[0] + p1[0]) / 3, (2 * p0[1]+ p1[1]) / 3)
@@ -108,9 +92,10 @@ def fract1(linesegment, iterations):
 	segments = [linesegment]
 	counter = 0
 	while segments and counter < iterations:
+		print("ITERATION: ", counter)
 		frontier = []
 		for segment in segments:
-			for lineseg in fract2equation(segment):
+			for lineseg in fract1equation(segment):
 				frontier.append(lineseg)
 		segments = frontier
 		counter += 1
@@ -136,8 +121,8 @@ def segments_to_graph(segemnts):
 	return G
 
 if __name__ == "__main__":
-
-	segments = fract1(((0, 0), (10, 10)), 4)
+	iterations = 8
+	segments = fract1(((0, 0), (10, 10)), iterations)
 
 	# for i in range(2):
 	# 	frontier = set()
@@ -158,7 +143,7 @@ if __name__ == "__main__":
 	# print(G.nodes())
 
 
-	plot.save_graph(G, pos, "fract1", 1000)
+	plot.save_graph(G, pos, "fract1_" + str(iterations) + "_", 100000)
 
 
 
