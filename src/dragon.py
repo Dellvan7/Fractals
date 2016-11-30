@@ -46,7 +46,7 @@ def dragon(segment, iteration):
 		points.append(current.point)
 		current = current.next
 	segments  = []
-	for i in range(len(points-1)):
+	for i in range(len(points)-1):
 		seg = [points[i], points[i+1]]
 		segments.append(seg)
 	return segments
