@@ -47,7 +47,7 @@ import plot
 			[p2/3, p1]
 		]
 '''
-def fract1(linesegment, iterations):
+def fract1(linesegments, iterations):
 	def distance(p0, p1):
 		# print("DISTANCE FUCNTION:", p0, p1)
 		return math.sqrt((p0[0] - p1[0])**2 + (p0[1] - p1[1])**2)	
@@ -89,7 +89,7 @@ def fract1(linesegment, iterations):
 		l4 = (p23, p1)
 		return [l1, l2, l3, l4]
 
-	segments = [linesegment]
+	segments = linesegments
 	counter = 0
 	while segments and counter < iterations:
 		print("ITERATION: ", counter)
@@ -105,7 +105,7 @@ def fract1(linesegment, iterations):
 	return segments
 
 
-def segments_to_graph(segemnts):
+def segments_to_graph(segments):
 	G = {}
 	for segment in segments:
 		p0, p1 = segment
@@ -121,9 +121,13 @@ def segments_to_graph(segemnts):
 	return G
 
 if __name__ == "__main__":
-	iterations = 8
-	segments = fract1(((0, 0), (10, 10)), iterations)
+	iterations = 5
+	orig_segments = [( (0, 0), (10, 0) ), ( (0, 0), (0, 10) ), ( (0, 10), (10, 10) ), ((10, 10), (10, 0))]
+	G = segments_to_graph(orig_segments)
+	G, pos = plot.list_graph_to_networkx(G)
+	plot.save_graph(G, pos, "orig_fract1_" + str(iterations) + "_", 100000)
 
+	segments = fract1(orig_segments, iterations)
 	# for i in range(2):
 	# 	frontier = set()
 	# 	for seg in segments:
