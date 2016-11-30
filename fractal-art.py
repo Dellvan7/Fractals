@@ -47,7 +47,7 @@ import plot
 			[p2/3, p1]
 		]
 '''
-def fract1(linesegment):
+def fract1(linesegment, iterations):
 	def distance(p0, p1):
 		# print("DISTANCE FUCNTION:", p0, p1)
 		return math.sqrt((p0[0] - p1[0])**2 + (p0[1] - p1[1])**2)	
@@ -105,7 +105,19 @@ def fract1(linesegment):
 		l4 = (p23, p1)
 		return [l1, l2, l3, l4]
 
-	return fract2equation(linesegment)
+	segments = [linesegment]
+	counter = 0
+	while segments and counter < iterations:
+		frontier = []
+		for segment in segments:
+			for lineseg in fract2equation(segment):
+				frontier.append(lineseg)
+		segments = frontier
+		counter += 1
+
+
+
+	return segments
 
 
 def segments_to_graph(segemnts):
@@ -125,7 +137,7 @@ def segments_to_graph(segemnts):
 
 if __name__ == "__main__":
 
-	segments = fract1(((0, 0), (10, 10)))
+	segments = fract1(((0, 0), (10, 10)), 4)
 
 	# for i in range(2):
 	# 	frontier = set()
