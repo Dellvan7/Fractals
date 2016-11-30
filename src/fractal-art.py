@@ -47,7 +47,7 @@ import plot
 			[p2/3, p1]
 		]
 '''
-def fract1(linesegment):
+def fract1(linesegment, iterations):
 	def distance(p0, p1):
 		# print("DISTANCE FUCNTION:", p0, p1)
 		return math.sqrt((p0[0] - p1[0])**2 + (p0[1] - p1[1])**2)	
@@ -57,14 +57,27 @@ def fract1(linesegment):
 		return ((p1[0] + p2[0])/2, math.sqrt( (distancep1p2/3)**2 - (distancep1p2/6)**2 ))
 
 	def third(p0, p1):
-	    return ()
+		a = p0[0]
+		b = p0[1]
+		c = p1[0]
+		d = p1[1]
+		#print(a,b)
+		#print(c,d)
+		v1x = c-a
+		v1y = d-b
+		#print("vector1:", v1x, v1y)
+		v2x = v1x/2 - (math.sqrt(3)*v1y/2)
+		v2y = (math.sqrt(3)*v1x/2) + v1y/2
+		#print("vector2:", v2x, v2y)
+		third = ((a+v2x, b+v2y))
+		return(third)
 
 	def fract1equation(linesegment):
 		p0, p1 = linesegment[0], linesegment[1]
 
 		p12 = midpoint(p0, p1)
-		p13 = third(p0, p1, 1)
-		p23 = third(p0, p1, 2)
+		p13 = third(p0, p1)
+		p23 = third(p0, p1)
 
 		# print("POINTS:",p0, p13, p12, p23, p1)
 
@@ -75,10 +88,36 @@ def fract1(linesegment):
 		l4 = (p23, p1)
 
 		return [l1, l2, l3, l4]
+	def fract2equation(linesegment):
+		p0, p1 = linesegment[0], linesegment[1]
+
+		#Compute points that make up middle line segment
+		p23 = ( (p0[0] + 2 * p1[0]) / 3, (p0[1] + 2 * p1[1]) /3)
+		p13 = ( (2 * p0[0] + p1[0]) / 3, (2 * p0[1]+ p1[1]) / 3)
+
+		#compute the third point of the triangle
+		p12 = third(p13, p23)
+
+		#print("POINTS:",p0, p13, p12, p23, p1)
+		l1 = (p0, p13)
+		l2 = (p13, p12)
+		l3 = (p12, p23)
+		l4 = (p23, p1)
+		return [l1, l2, l3, l4]
+
+	segments = [linesegment]
+	counter = 0
+	while segments and counter < iterations:
+		frontier = []
+		for segment in segments:
+			for lineseg in fract2equation(segment):
+				frontier.append(lineseg)
+		segments = frontier
+		counter += 1
 
 
 
-	return fract1equation(linesegment)
+	return segments
 
 
 def segments_to_graph(segemnts):
@@ -98,7 +137,7 @@ def segments_to_graph(segemnts):
 
 if __name__ == "__main__":
 
-	segments = fract1(((0, 0), (5, 10)))
+	segments = fract1(((0, 0), (10, 10)), 4)
 
 	# for i in range(2):
 	# 	frontier = set()
