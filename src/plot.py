@@ -28,4 +28,5 @@ def list_graph_to_networkx(graph):
 def save_graph(G, pos, name, basewidth):
 	plt.clf()
 	nx.draw_networkx_edges(G, pos=pos, node_color='k', edge_color='b', node_shape='.', node_size=10, with_labels=True, ax=None, fontsize=8)
-	plt.savefig('fractals/' + name + basewidth.__str__() + ".png",format="PNG")
+	plt.axis('off')
+	plt.savefig('fractals/' + name + basewidth.__str__() + ".png",format="PNG", dpi=500)
