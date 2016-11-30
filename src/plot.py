@@ -25,6 +25,21 @@ def list_graph_to_networkx(graph):
 			G.add_edge(node, node2)
 	return G, pos
 
+def segments_to_graph(segments):
+	G = {}
+	for segment in segments:
+		p0, p1 = segment
+
+		if p0 not in G:
+			G[p0] = [p1]
+		else:
+			G[p0].append(p1)
+		if p1 not in G:
+			G[p1] = [p0]
+		else:
+			G[p1].append(p0)
+	return G
+
 def save_graph(G, pos, name, basewidth):
 	plt.clf()
 	nx.draw_networkx_edges(G, pos=pos, node_color='k', edge_color='b', node_shape='.', node_size=10, with_labels=True, ax=None, fontsize=8)

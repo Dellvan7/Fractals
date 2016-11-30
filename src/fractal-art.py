@@ -100,25 +100,8 @@ def fract1(linesegments, iterations):
 		segments = frontier
 		counter += 1
 
-
-
 	return segments
 
-
-def segments_to_graph(segments):
-	G = {}
-	for segment in segments:
-		p0, p1 = segment
-
-		if p0 not in G:
-			G[p0] = [p1]
-		else:
-			G[p0].append(p1)
-		if p1 not in G:
-			G[p1] = [p0]
-		else:
-			G[p1].append(p0)
-	return G
 
 if __name__ == "__main__":
 	iterations = 5
@@ -137,7 +120,7 @@ if __name__ == "__main__":
 
 	# print("SEGEMNTS:", segments)
 
-	G = segments_to_graph(segments)
+	G = plot.segments_to_graph(segments)
 
 	# print("GRAPH:", G)
 

@@ -46,7 +46,7 @@ def dragon(segment, iteration):
 		points.append(current.point)
 		current = current.next
 	segments  = []
-	for i in range(len(points-1)):
+	for i in range(len(points)-1):
 		seg = [points[i], points[i+1]]
 		segments.append(seg)
 	return segments
@@ -54,6 +54,12 @@ def dragon(segment, iteration):
 
 
 if __name__ == '__main__':
+	iterations = 10
 	seg = [(0,0), (2,0)]
-	points = dragon(seg, 2)
-	print(points)
+	segments = dragon(seg, iterations)
+
+	G = plot.segments_to_graph(segments)
+	G, pos = plot.list_graph_to_networkx(G)
+	plot.save_graph(G, pos, "dragon_" + str(iterations) + "_", 100000)
+
+
