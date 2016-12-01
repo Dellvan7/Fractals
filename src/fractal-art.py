@@ -105,7 +105,7 @@ def fract1(linesegments, iterations):
 
 if __name__ == "__main__":
 	iterations = 5
-	orig_segments = [( (0, 0), (10, 0) ), ( (0, 0), (0, 10) ), ( (0, 10), (10, 10) ), ((10, 10), (10, 0))]
+	orig_segments = [( (10, 0), (0, 0) ), ( (0, 0), (0, 10) ), ( (0, 10), (10, 10) ), ((10, 10), (10, 0))]
 	G = plot.segments_to_graph(orig_segments)
 	G, pos = plot.list_graph_to_networkx(G)
 	plot.save_graph(G, pos, "orig_fract1_" + str(iterations) + "_", 100000)
