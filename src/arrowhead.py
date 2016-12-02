@@ -53,22 +53,25 @@ def arrowhead(segment, iterations):
 		
 		iterations -=1
 
-	points = []
-	current = start
-	while current:
-		points.append(current.point)
-		current = current.next
-	segments  = []
-	for i in range(len(points)-1):
-		seg = [points[i], points[i+1]]
-		segments.append(seg)
+		points = []
+		current = start
+		while current:
+			points.append(current.point)
+			current = current.next
+		segments  = []
+		for i in range(len(points)-1):
+			seg = [points[i], points[i+1]]
+			segments.append(seg)
+		G = plot.segments_to_graph(segments)
+		G, pos = plot.list_graph_to_networkx(G)
+		plot.save_graph(G, pos, "arrowhead_" + str(iterations) + "_", 100000)
 	return segments
 
 
 
 if __name__ == '__main__':
 
-	iterations = 20
+	iterations = 10
 	seg = [(0,0), (16,0)]
 	segments = arrowhead(seg, iterations)
 
