@@ -13,8 +13,11 @@ class pointNode:
 # Returns a list of points that can be used to plot a dragon curve.  
 # Takes in an initial line segment, and the number of desired iterations
 def dragon(segment, iteration):
+	filenames = []
+
 	end = pointNode(segment[0])
 	start = pointNode((segment[1]), end)
+	
 	while (iteration > 0):
 		current = start
 		left = True
@@ -52,13 +55,17 @@ def dragon(segment, iteration):
 		
 		G = plot.segments_to_graph(segments)
 		G, pos = plot.list_graph_to_networkx(G)
-		plot.save_graph(G, pos, "dragon_" + str(iteration) + "_", 100000)
+		filename = "dragon_" + str(iteration) + ".png"
+		filenames.append(filename)
+		plot.save_graph(G, pos, filename, 1000)
+
+	plot.images_to_gif("dragon", filenames)
 	return segments
 
 
 
 if __name__ == '__main__':
-	iterations = 10
+	iterations = 8
 	seg = [(0,0), (2,0)]
 	segments = dragon(seg, iterations)
 

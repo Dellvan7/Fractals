@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
-import networkx as nx
+import networkx as nx	
+import imageio
+
 
 def matrix_graph_to_networkx(graph, width, height):
 	nodes, adj_matrix = graph
@@ -40,8 +42,14 @@ def segments_to_graph(segments):
 			G[p1].append(p0)
 	return G
 
-def save_graph(G, pos, name, basewidth):
+def images_to_gif(fractal_name, filenames):
+	with imageio.get_writer('fractals/' + fractal_name + "_" + str(len(filenames)) + '.gif', mode='I', duration=0.5) as writer:
+	    for filename in filenames:
+	        image = imageio.imread('fractals/' + filename)
+	        writer.append_data(image)
+
+def save_graph(G, pos, filename, dpi):
 	plt.clf()
-	nx.draw_networkx_edges(G, pos=pos, node_color='k', edge_color='b', node_shape='.', node_size=10, with_labels=True, ax=None, fontsize=8)
+	nx.draw_networkx_edges(G, pos=pos, node_color='k', edge_color='b', node_shape='.', node_size=10, with_labels=False, ax=None, fontsize=0, width = .5)
 	plt.axis('off')
-	plt.savefig('fractals/' + name + basewidth.__str__() + ".png",format="PNG", dpi=500)
+	plt.savefig('fractals/' + filename, format="PNG", dpi=dpi)

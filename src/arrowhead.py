@@ -8,6 +8,8 @@ from dragon import pointNode
 
 
 def arrowhead(segment, iterations):
+	filenames = []
+
 	end = pointNode(segment[1])
 	start = pointNode((segment[0]), end)
 
@@ -64,7 +66,12 @@ def arrowhead(segment, iterations):
 			segments.append(seg)
 		G = plot.segments_to_graph(segments)
 		G, pos = plot.list_graph_to_networkx(G)
-		plot.save_graph(G, pos, "arrowhead_" + str(iterations) + "_", 100000)
+		filename = "arrrowhead" + str(iterations) + ".png"
+		filenames.append(filename)
+		plot.save_graph(G, pos, filename, 1000)
+
+	plot.images_to_gif("arrrowhead", filenames)
+
 	return segments
 
 
@@ -74,7 +81,3 @@ if __name__ == '__main__':
 	iterations = 10
 	seg = [(0,0), (16,0)]
 	segments = arrowhead(seg, iterations)
-
-	G = plot.segments_to_graph(segments)
-	G, pos = plot.list_graph_to_networkx(G)
-	plot.save_graph(G, pos, "arrowhead_" + str(iterations) + "_", 100000)
